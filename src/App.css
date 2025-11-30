@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #e3f4fc;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Roboto", sans-serif;
+}
+
+
+.box{
+    background-color: white;
+    max-width: 1000px;
+    width: 100%;
+    aspect-ratio: 10/6;
+    border-radius: 3%/5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin: 0 1rem;
+}
+
+.left, .right{
+    width: 50%;
+    max-height: 600px;
+    height: 100%;
+}
+
+.right{
+    background-color: #143c52;
+    border-bottom-left-radius:15%;
+}
+
+
+
+/* right side */
+
+.right{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: white;
+}
+
+.right p{
+    color:#6c8b9e ;
+    line-height: 1.5rem;
+    font-weight: 500;
+    width: 80%;
+    margin: 1rem 0;
+}
+
+.right h2{
+    font-size: 1.6rem;
+    margin: 1rem 0;
+}
+
+@media screen and (max-width:375px){
+    .container{
+        overflow: visible;
+        height: auto;
+    }
+    .box{
+        width: 100%;
+        height: 1000px;
+        margin: 0;
+        border-radius: 0;
+        flex-direction: column;
+        overflow-y: visible;
+        padding: 0;
+        aspect-ratio: unset;
+    }
+    .box div{
+        width: 100%;
+        max-height: auto;
+        border-radius: 0;
+        margin: 0;
+    }
+    .box .right{
+        height: 40%;
+    }
+    .box .left{
+        height: 60%;
+        width: 100%;
+    }
+}

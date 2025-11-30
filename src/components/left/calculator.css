@@ -1,0 +1,186 @@
+
+.calculator{
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
+
+
+.headerDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerDiv h3{
+    font-size: 1.6rem;
+    color:#143c52;   
+}
+
+.headerDiv button{
+    background:none;
+    border: none;
+    color: #6c8b9e;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.inputs{
+    width: 100%;
+    display: grid;
+    grid-template-areas: 
+        "amount amount"
+        "term rate"
+    ;
+    gap:10px;
+}
+
+#amount{
+    grid-area: amount;
+}
+#term{
+    grid-area: term;
+}
+#rate{
+    grid-area: rate;
+}
+
+
+.amount_child{
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: start;
+    flex-direction:column;
+}
+
+.error{
+    visibility: hidden;
+    color: #d7332a;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin: 0.8rem 0;
+}
+
+
+
+label{
+    color: #6c8b9e;
+    font-weight: 600;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+.inputContainer{
+    width: 100%;
+    height: 40px;
+    position: relative;
+    display: flex;
+    border: 1px solid #c7dae1;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.inputLabel{
+    height: 100%;
+    background-color: #e2f4fd;
+    padding:0 1rem ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #6c8b9e;
+    font-weight: 600 ;
+}
+
+
+input{
+    width: 90%;
+    height: 100%;
+    color: #143c52;
+    outline: none;
+    border: none;
+    font-size: 1rem;
+    padding:0 1rem;
+}
+
+.inputContainer.focused {
+    border:1px solid #d9db30 ;
+}
+
+.inputLabel.focused {
+    background-color: #d9db30 ;
+    color: #143c52;
+}
+
+
+.repayment, .interest{
+    width: 100%;
+    height:40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items:center;
+    border: 1px solid #c6d3d7;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding:0 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #143c52;
+    cursor: pointer;
+    margin: 0.8rem 0;
+}
+
+.circle{
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #143c52;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+}
+.innerCircle{
+    display: none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #d9db30;
+}
+
+.selected{
+    border: 1px solid #d9db30;
+    background-color:#fafae0 ;
+}
+
+.activated{
+    border: 2px solid #d9db30;
+}
+
+.activated .innerCircle{
+    display: block;
+}
+.typeBtns{
+    margin: 0.9rem 0 ;
+}
+
+
+.calculate{
+    max-width: 70%;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    background: #d9db30 ;
+    cursor: pointer;
+}
+
+.calculate img{
+    margin-right: 0.5rem;
+}
