@@ -28,6 +28,7 @@
 
 .inputs{
     width: 100%;
+    margin: 1.5rem 0;
     display: grid;
     grid-template-areas: 
         "amount amount"
@@ -55,8 +56,7 @@
     flex-direction:column;
 }
 
-.error{
-    visibility: hidden;
+.errortext{
     color: #d7332a;
     font-size: 0.8rem;
     font-weight: 500;
@@ -65,10 +65,11 @@
 
 
 
+
 label{
     color: #6c8b9e;
     font-weight: 600;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     font-size: 0.9rem;
 }
 
@@ -93,6 +94,15 @@ label{
     font-weight: 600 ;
 }
 
+.inputContainer.error{
+    border:1px solid #d7332a;
+}
+.inputLabel.error{
+    background-color: #d7332a;
+    color: white;
+}
+
+
 
 input{
     width: 90%;
@@ -105,7 +115,7 @@ input{
 }
 
 .inputContainer.focused {
-    border:1px solid #d9db30 ;
+    border:1px solid #d9db30;
 }
 
 .inputLabel.focused {
@@ -183,4 +193,8 @@ input{
 
 .calculate img{
     margin-right: 0.5rem;
+}
+
+.calculate:hover{
+    background-color: #fcff63;
 }

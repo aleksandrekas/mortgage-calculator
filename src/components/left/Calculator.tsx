@@ -1,10 +1,30 @@
 import './calculator.css'
 import { useState } from 'react';
+type InputsType = {
+    amount:string
+    term:string
+    rate:string
+}
+
+type ErrorsType = {
+    amount:boolean
+    term:boolean
+    rate:boolean
+}
 
 
 export default function Calculator(){
     const [type,setType] = useState('')
-
+    const [inputs,setInputs] = useState<InputsType>({
+        amount:'',
+        term:'',
+        rate:''
+    })
+    const [errors,setErrors] = useState<ErrorsType>({
+        amount:false,
+        term:false,
+        rate:false
+    })
 
 
     function setFocus(e:React.FocusEvent<HTMLInputElement>){
@@ -24,42 +44,85 @@ export default function Calculator(){
         label?.classList.remove('focused')
     }
 
-
+ 
     function selectType(type:string){
         setType(type)
     }
 
+    function handleInputValues(input:keyof InputsType,e:React.ChangeEvent<HTMLInputElement>){
+        const targetValue = e.target.value
+        if(!isNaN(Number(targetValue)) || targetValue === ''){
+            setInputs((prev)=>({
+                ...prev,
+                [input]:targetValue
+            }))
+        }
+    }
+
+    function clearInputs(){
+        setInputs({
+            amount:'',
+            rate:'',
+            term:''
+        })
+    }
+
+
+    function calculate(){
+        const updatedErr:ErrorsType = {...errors};
+        
+        (Object.keys(inputs) as (keyof ErrorsType)[]).forEach(key => {
+            updatedErr[key] = inputs[key] === ''
+        });
+
+        setErrors(updatedErr);
+    }
 
     return(
         <div className="calculator">
             <div className="headerDiv">
                 <h3>Mortgage Calculator</h3>
-                <button className="clearBtn">Clear All</button>
+                <button onClick={clearInputs} className="clearBtn">Clear All</button>
             </div>
             <div className="inputs">
                 <div className="amount_child" id='amount'>
                     <label htmlFor="amount">Mortgage Amount</label>
-                    <div className="inputContainer">
-                        <div className="inputLabel">£</div>
-                        <input onFocus={(e)=>{setFocus(e)}} onBlur={(e)=>{loseFocus(e)}} type="text" name="amount" />
+                    <div className={errors.amount? 'inputContainer error' : 'inputContainer'}>
+                        <div  className={errors.amount? 'inputLabel error' : 'inputLabel'}>£</div>
+                        <input 
+                        onFocus={(e)=>{setFocus(e)}} 
+                        onBlur={(e)=>{loseFocus(e)}}
+                        onChange={(e)=>{handleInputValues('amount',e)}}
+                        value={inputs.amount} 
+                        type="text" name="amount" />
                     </div>
-                    <p className="error">This field is required</p>
+                    <p style={{visibility:errors.amount? 'visible' : 'hidden' }} className="errortext">This field is required</p>
                 </div>
                 <div className="amount_child" id='term'>
                     <label htmlFor="amount">Mortgage Term</label>
-                    <div className="inputContainer">
-                        <input onFocus={(e)=>{setFocus(e)}} onBlur={(e)=>{loseFocus(e)}} type="text" name="amount" />
-                        <div className="inputLabel">years</div>
+                    <div className={errors.term? 'inputContainer error' : 'inputContainer'}>
+                        <input 
+                        onFocus={(e)=>{setFocus(e)}} 
+                        onBlur={(e)=>{loseFocus(e)}} 
+                        onChange={(e)=>{handleInputValues('term',e)}}
+                        value={inputs.term} 
+                        type="text" name="amount" />
+                        <div className={errors.term? 'inputLabel error' : 'inputLabel'}>years</div>
                     </div>
-                    <p className="error">This field is required</p>
+                    <p style={{visibility:errors.term? 'visible' : 'hidden' }} className="errortext">This field is required</p>
                 </div>
                 <div className="amount_child" id='rate'>
                     <label htmlFor="amount">Interest Rate</label>
-                    <div className="inputContainer">
-                        <input onFocus={(e)=>{setFocus(e)}} onBlur={(e)=>{loseFocus(e)}} type="text" name="amount" />
-                        <div className="inputLabel">%</div>
+                    <div className={errors.rate? 'inputContainer error' : 'inputContainer'}>
+                        <input 
+                        onFocus={(e)=>{setFocus(e)}} 
+                        onBlur={(e)=>{loseFocus(e)}} 
+                        onChange={(e)=>{handleInputValues('rate',e)}}
+                        value={inputs.rate} 
+                        type="text" name="amount" />
+                        <div className={errors.rate? 'inputLabel error' : 'inputLabel'}>%</div>
                     </div>
-                    <p className="error">This field is required</p>
+                    <p style={{visibility:errors.rate? 'visible' : 'hidden' }} className="errortext">This field is required</p>
                 </div>
             </div>
             <div className="typeBtns">
@@ -77,7 +140,7 @@ export default function Calculator(){
                     Interest Only
                 </div>
             </div>
-            <button className="calculate">
+            <button onClick={calculate} className="calculate">
                 <img src="src\assets\images\icon-calculator.svg" alt="calculator" />
                 Calculate Repayments
             </button>
