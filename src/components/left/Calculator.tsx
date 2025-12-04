@@ -14,7 +14,7 @@ type ErrorsType = {
 
 
 export default function Calculator(){
-    const [type,setType] = useState('')
+    const [type,setType] = useState('repayment')
     const [inputs,setInputs] = useState<InputsType>({
         amount:'',
         term:'',
@@ -29,11 +29,13 @@ export default function Calculator(){
 
     function setFocus(e:React.FocusEvent<HTMLInputElement>){
         const input = e.currentTarget;
+        const inputName = input.name as keyof ErrorsType;
         const parent = input.closest(".inputContainer")
         const label = parent?.querySelector(".inputLabel");
-
-        parent?.classList.add('focused')
-        label?.classList.add('focused')
+        if(!errors[inputName]){
+            parent?.classList.add('focused')
+            label?.classList.add('focused')
+        }
     }
     function loseFocus(e:React.FocusEvent<HTMLInputElement>){
         const input = e.currentTarget;
@@ -43,14 +45,41 @@ export default function Calculator(){
         parent?.classList.remove('focused')
         label?.classList.remove('focused')
     }
-
- 
+    
+    
     function selectType(type:string){
         setType(type)
     }
+    
+    function handleKeydown(e:React.KeyboardEvent<HTMLInputElement>){
+        const currInput = e.currentTarget
+        const inputKey = currInput.name as keyof ErrorsType
+        if(errors[inputKey]){
+            setErrors((prev)=>({
+                ...prev,
+                [inputKey]:false
+            }))
+        }
+    }
+
+    function handleKeyUp(e:React.KeyboardEvent<HTMLInputElement>){
+        const currInput = e.currentTarget
+        const inputKey = currInput.name as keyof ErrorsType
+        const parent = currInput.closest(".inputContainer")
+        const label = parent?.querySelector(".inputLabel");
+
+        if(!errors[inputKey]){
+            parent?.classList.add('focused')
+            label?.classList.add('focused')
+        }
+
+
+    }
+
 
     function handleInputValues(input:keyof InputsType,e:React.ChangeEvent<HTMLInputElement>){
         const targetValue = e.target.value
+
         if(!isNaN(Number(targetValue)) || targetValue === ''){
             setInputs((prev)=>({
                 ...prev,
@@ -90,6 +119,8 @@ export default function Calculator(){
                     <div className={errors.amount? 'inputContainer error' : 'inputContainer'}>
                         <div  className={errors.amount? 'inputLabel error' : 'inputLabel'}>£</div>
                         <input 
+                        onKeyDown={(e)=>{handleKeydown(e)}}
+                        onKeyUp={(e)=>{handleKeyUp(e)}}
                         onFocus={(e)=>{setFocus(e)}} 
                         onBlur={(e)=>{loseFocus(e)}}
                         onChange={(e)=>{handleInputValues('amount',e)}}
@@ -99,27 +130,31 @@ export default function Calculator(){
                     <p style={{visibility:errors.amount? 'visible' : 'hidden' }} className="errortext">This field is required</p>
                 </div>
                 <div className="amount_child" id='term'>
-                    <label htmlFor="amount">Mortgage Term</label>
+                    <label htmlFor="term">Mortgage Term</label>
                     <div className={errors.term? 'inputContainer error' : 'inputContainer'}>
                         <input 
+                        onKeyDown={(e)=>{handleKeydown(e)}}
+                        onKeyUp={(e)=>{handleKeyUp(e)}}
                         onFocus={(e)=>{setFocus(e)}} 
                         onBlur={(e)=>{loseFocus(e)}} 
                         onChange={(e)=>{handleInputValues('term',e)}}
                         value={inputs.term} 
-                        type="text" name="amount" />
+                        type="text" name="term" />
                         <div className={errors.term? 'inputLabel error' : 'inputLabel'}>years</div>
                     </div>
                     <p style={{visibility:errors.term? 'visible' : 'hidden' }} className="errortext">This field is required</p>
                 </div>
                 <div className="amount_child" id='rate'>
-                    <label htmlFor="amount">Interest Rate</label>
+                    <label htmlFor="rate">Interest Rate</label>
                     <div className={errors.rate? 'inputContainer error' : 'inputContainer'}>
                         <input 
+                        onKeyDown={(e)=>{handleKeydown(e)}}
+                        onKeyUp={(e)=>{handleKeyUp(e)}}
                         onFocus={(e)=>{setFocus(e)}} 
                         onBlur={(e)=>{loseFocus(e)}} 
                         onChange={(e)=>{handleInputValues('rate',e)}}
                         value={inputs.rate} 
-                        type="text" name="amount" />
+                        type="text" name="rate" />
                         <div className={errors.rate? 'inputLabel error' : 'inputLabel'}>%</div>
                     </div>
                     <p style={{visibility:errors.rate? 'visible' : 'hidden' }} className="errortext">This field is required</p>
