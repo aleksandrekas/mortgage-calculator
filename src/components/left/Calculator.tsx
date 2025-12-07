@@ -1,5 +1,8 @@
 import './calculator.css'
-import { useState } from 'react';
+import { useState,useContext } from 'react';
+import { ResultsContext } from '../Context';
+
+
 type InputsType = {
     amount:string
     term:string
@@ -25,6 +28,10 @@ export default function Calculator(){
         term:false,
         rate:false
     })
+
+    const{results, setResults} = useContext(ResultsContext)
+
+
 
 
     function setFocus(e:React.FocusEvent<HTMLInputElement>){
@@ -96,15 +103,28 @@ export default function Calculator(){
         })
     }
 
+    console.log(results)
+
+
 
     function calculate(){
-        const updatedErr:ErrorsType = {...errors};
-        
-        (Object.keys(inputs) as (keyof ErrorsType)[]).forEach(key => {
-            updatedErr[key] = inputs[key] === ''
-        });
+        if(errors.amount || errors.rate || errors.term){
+            const updatedErr:ErrorsType = {...errors};
+            (Object.keys(inputs) as (keyof ErrorsType)[]).forEach(key => {
+                updatedErr[key] = inputs[key] === ''
+            });
+            setErrors(updatedErr);
+            return
+        }else{
+            const monthlyinterest = (parseInt(inputs.rate) / 100) * parseInt(inputs.amount)
+            const monthlyRepayment = monthlyinterest + parseInt(inputs.amount)
+            const totalTermPayment = monthlyRepayment * parseInt(inputs.term)
+            const totalTermInterest = monthlyinterest * parseInt(inputs.term)
 
-        setErrors(updatedErr);
+            console.log("monthly" + monthlyRepayment)
+            console.log("total interest" + totalTermInterest)
+            console.log("total payment" + totalTermPayment)
+        }
     }
 
     return(
