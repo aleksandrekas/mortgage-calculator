@@ -198,3 +198,27 @@ input{
 .calculate:hover{
     background-color: #fcff63;
 }
+
+
+
+@media screen and (max-width:375px){
+    .calculate{
+        width: 100% ;
+        max-width: none;
+    }
+    .headerDiv{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .clearBtn{
+        margin-top: 1rem;
+    }
+
+    .inputs{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+}

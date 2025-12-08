@@ -121,9 +121,15 @@ export default function Calculator(){
             const totalTermPayment = monthlyRepayment * parseInt(inputs.term)
             const totalTermInterest = monthlyinterest * parseInt(inputs.term)
 
-            console.log("monthly" + monthlyRepayment)
-            console.log("total interest" + totalTermInterest)
-            console.log("total payment" + totalTermPayment)
+            setResults({
+                monthlyPay:monthlyRepayment,
+                totalPay:totalTermPayment,
+                totalInterest:totalTermInterest,
+                monthlyInterest:monthlyinterest,
+                type:type
+            })
+
+            clearInputs()
         }
     }
 

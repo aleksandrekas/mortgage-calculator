@@ -1,8 +1,16 @@
 import './App.css'
 import Calculator from './components/left/Calculator'
 import Results from './components/right/Results'
+import Panel from './components/right/Panel'
+import { useContext } from 'react'
+import { ResultsContext } from './components/Context'
+
+
 
 function App() {  
+  const {results} = useContext(ResultsContext)
+
+
   return (
     <div className='container'>
       <div className="box">
@@ -10,10 +18,12 @@ function App() {
           <Calculator />
         </div>
         <div className="right">
-          {/* <img src="src\assets\images\illustration-empty.svg" alt="" />
-          <h2>Results are shown here</h2>
-          <p>Complete form and click "calculate repayments" to see what your monthly repayments would be.</p> */}
-          <Results />
+          {
+            results.monthlyPay === 0 && results.monthlyInterest === 0 ?
+              <Panel />
+              :
+              <Results />
+          }
         </div>
       </div>
     </div>
