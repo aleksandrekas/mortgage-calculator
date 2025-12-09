@@ -5,7 +5,7 @@ import { useContext } from "react"
 
 export default function Results(){
 
-    const {results,setResults} = useContext(ResultsContext)
+    const {results} = useContext(ResultsContext)
 
 
     function format(num:number){
