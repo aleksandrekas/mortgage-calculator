@@ -202,7 +202,7 @@ export default function Calculator(){
                 </div>
             </div>
             <button onClick={calculate} className="calculate">
-                <img src="src\assets\images\icon-calculator.svg" alt="calculator" />
+                <img src="/images/icon-calculator.svg" alt="calculator" />
                 Calculate Repayments
             </button>
         </div>
