@@ -108,7 +108,7 @@ export default function Calculator(){
 
 
     function calculate(){
-        if(errors.amount || errors.rate || errors.term){
+        if(inputs.amount === '' || inputs.rate === '' || inputs.term === ''){
             const updatedErr:ErrorsType = {...errors};
             (Object.keys(inputs) as (keyof ErrorsType)[]).forEach(key => {
                 updatedErr[key] = inputs[key] === ''
