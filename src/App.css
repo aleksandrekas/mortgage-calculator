@@ -71,7 +71,7 @@
     margin: 1rem 0;
 }
 
-@media screen and (max-width:375px){
+@media screen and (max-width:475px){
     .container{
         overflow: visible;
         height: auto;

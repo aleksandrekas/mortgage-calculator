@@ -201,7 +201,7 @@ input{
 
 
 
-@media screen and (max-width:375px){
+@media screen and (max-width:475px){
     .calculate{
         width: 100% ;
         max-width: none;
